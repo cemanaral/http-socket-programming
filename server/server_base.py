@@ -1,5 +1,4 @@
 import socket
-import re
 
 class ServerBase:
     def __init__(self, host, port):
@@ -27,6 +26,18 @@ class ServerBase:
     def parse_endpoint(self, data):
         return data.split('\n')[0].split()[1]
 
+    def parse_method_name(self, endpoint):
+        method = endpoint.split('?')[0][1:]
+        return method if method != 'favicon.ico' else ''
+
+    def parse_arguments(self, endpoint):
+        arguments = endpoint.split('?')[1:]
+        if arguments:
+            return list(map(lambda a: a.split('=')[1], arguments[0].split('&')))
+        return []
+
     def handle_request(self, data):
-        self.parse_endpoint(data)
-        return f'HTTP/1.0 200 OK\n\n<h1>{self.__class__.__name__}</h1><h2>{self.parse_endpoint(data)}</h2>'
+        endpoint = self.parse_endpoint(data)
+        method = self.parse_method_name(endpoint)
+        arguments = self.parse_arguments(endpoint)
+        return f'HTTP/1.0 200 OK\n\n<h1>{self.__class__.__name__}</h1><h2>endpoint: {endpoint}</h2><h2>method: {method}</h2><h2>arguments: {str(arguments)}</h2>'
