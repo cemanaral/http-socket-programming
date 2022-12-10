@@ -2,8 +2,11 @@ import socket
 
 
 class ServerBase:
+
+    HTTP_200_OK = "HTTP/1.0 200 OK\n\n"
+    HTTP_403_FORBIDDEN = "HTTP/1.0 403 Forbidden\n\n"
+
     def __init__(self, host, port):
-        self.db = {}
         self.host = host
         self.port = port
         self.sock = self.__create_socket()
@@ -21,7 +24,7 @@ class ServerBase:
             print(f"{self.__class__.__name__}: Connected by {addr}")
             data = conn.recv(4096)
             if "/favicon.ico" in data.decode():
-                response = "HTTP/1.0 200 OK\n\n"
+                response = self.HTTP_200_OK
                 conn.sendall(response.encode())
                 conn.close()
                 continue
@@ -46,7 +49,10 @@ class ServerBase:
         method = self.parse_method_name(endpoint)
         arguments = self.parse_arguments(endpoint)
 
+        if not method:
+            return f'HTTP/1.0 200 OK\n\n<h1>{self.__class__.__name__}</h1>'
+ 
+        print("method", method)
         func_call_string = f"self.{method}({','.join(arguments)})"
         result = eval(func_call_string)
-        print(result)
-        return f'HTTP/1.0 200 OK\n\n<h1>{self.__class__.__name__}</h1><h2>endpoint: {endpoint}</h2><h2>method: {method}</h2><h2>arguments: {str(arguments)}</h2>'
+        return result
