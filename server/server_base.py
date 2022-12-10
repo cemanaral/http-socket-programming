@@ -1,4 +1,5 @@
 import socket
+import re
 
 class ServerBase:
     def __init__(self, host, port):
@@ -23,5 +24,9 @@ class ServerBase:
             conn.sendall(response.encode())
             conn.close()
 
+    def parse_endpoint(self, data):
+        return data.split('\n')[0].split()[1]
+
     def handle_request(self, data):
-        return f'HTTP/1.0 200 OK\n\n<h1>{self.__class__.__name__}</h1>'
+        self.parse_endpoint(data)
+        return f'HTTP/1.0 200 OK\n\n<h1>{self.__class__.__name__}</h1><h2>{self.parse_endpoint(data)}</h2>'
