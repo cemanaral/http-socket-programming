@@ -1,0 +1,16 @@
+{
+    "room_server": {
+        "host": "127.0.0.1",
+        "port": 8080
+    },
+
+    "activity_server": {
+        "host": "127.0.0.1",
+        "port": 8081
+    },
+
+    "reservation_server": {
+        "host": "127.0.0.1",
+        "port": 8082
+    }
+}
