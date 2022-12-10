@@ -19,6 +19,11 @@ class ServerBase:
             conn, addr = self.sock.accept()
             print(f"{self.__class__.__name__}: Connected by {addr}")
             data = conn.recv(4096)
+            if "/favicon.ico" in data.decode():
+                response = "HTTP/1.0 200 OK\n\n"
+                conn.sendall(response.encode())
+                conn.close()
+                continue
             response = self.handle_request(data.decode())
             conn.sendall(response.encode())
             conn.close()
@@ -27,8 +32,7 @@ class ServerBase:
         return data.split('\n')[0].split()[1]
 
     def parse_method_name(self, endpoint):
-        method = endpoint.split('?')[0][1:]
-        return method if method != 'favicon.ico' else ''
+        return endpoint.split('?')[0][1:]
 
     def parse_arguments(self, endpoint):
         arguments = endpoint.split('?')[1:]
