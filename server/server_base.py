@@ -15,4 +15,13 @@ class ServerBase:
         return sock
 
     def start(self):
-        raise NotImplementedError()
+        while True:
+            conn, addr = self.sock.accept()
+            print(f"{self.__class__.__name__}: Connected by {addr}")
+            data = conn.recv(4096)
+            response = self.handle_request(data.decode())
+            conn.sendall(response.encode())
+            conn.close()
+
+    def handle_request(self, data):
+        return f'HTTP/1.0 200 OK\n\n<h1>{self.__class__.__name__}</h1>'
