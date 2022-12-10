@@ -5,6 +5,7 @@ class ServerBase:
 
     HTTP_200_OK = "HTTP/1.0 200 OK\n\n"
     HTTP_403_FORBIDDEN = "HTTP/1.0 403 Forbidden\n\n"
+    HTTP_400_BAD_REQUEST = "HTTP/1.0 400 Bad Request\n\n"
 
     def __init__(self, host, port):
         self.host = host
