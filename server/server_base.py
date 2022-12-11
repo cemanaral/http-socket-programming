@@ -6,11 +6,14 @@ class ServerBase:
     HTTP_200_OK = "HTTP/1.0 200 OK\n\n"
     HTTP_403_FORBIDDEN = "HTTP/1.0 403 Forbidden\n\n"
     HTTP_400_BAD_REQUEST = "HTTP/1.0 400 Bad Request\n\n"
+    HTTP_404_NOT_FOUND =  "HTTP/1.0 404 Not Found\n\n"
 
     def __init__(self, host, port):
         self.host = host
         self.port = port
         self.sock = self.__create_socket()
+        self.header = f"<h1>{self.__class__.__name__}</h1>"
+
 
     def __create_socket(self):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -51,7 +54,7 @@ class ServerBase:
         arguments = self.parse_arguments(endpoint)
 
         if not method:
-            return f'HTTP/1.0 200 OK\n\n<h1>{self.__class__.__name__}</h1>'
+            return f'HTTP/1.0 200 OK\n\n' + self.header
  
         print("method", method)
         func_call_string = f"self.{method}({','.join(arguments)})"
