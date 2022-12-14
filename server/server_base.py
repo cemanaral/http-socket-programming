@@ -55,7 +55,7 @@ class ServerBase:
         arguments = self.parse_arguments(endpoint)
 
         if not method:
-            return f'HTTP/1.0 200 OK\n\n' + self.header
+            return self.HTTP_200_OK + self.header
  
         print("method", method)
         func_call_string = f"self.{method}({','.join(arguments)})"
