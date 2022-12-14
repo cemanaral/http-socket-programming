@@ -20,6 +20,7 @@ if __name__ == '__main__':
     import threading
     import json
 
+    # TODO: move it to utils.py 
     with open("config.json") as f:
         config = json.load(f)
 

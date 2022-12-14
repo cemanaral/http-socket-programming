@@ -7,6 +7,7 @@ class ServerBase:
     HTTP_403_FORBIDDEN = "HTTP/1.0 403 Forbidden\n\n"
     HTTP_400_BAD_REQUEST = "HTTP/1.0 400 Bad Request\n\n"
     HTTP_404_NOT_FOUND =  "HTTP/1.0 404 Not Found\n\n"
+    HTTP_500_INTERNAL_SERVER_ERROR = "HTTP/1.0 500 Internal Server Error\n\n"
 
     def __init__(self, host, port):
         self.host = host
