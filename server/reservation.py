@@ -116,3 +116,11 @@ class ReservationServer(server.server_base.ServerBase):
             day_index = int(day) - 1
             return self.HTTP_400_BAD_REQUEST + self.header + f"Invalid day ({day_index})!"
         return self.HTTP_500_INTERNAL_SERVER_ERROR + self.header + "Internal server error"
+
+    def display(self, id):
+        id = int(id)
+        if id not in self.reservations.db_object:
+            return self.HTTP_404_NOT_FOUND + self.header + f"Reservation with id {id} does not exist!"
+        reservation = self.reservations.db_object[id]
+        reservation_html = f"<ul><li>Reservation id: {id}</li><li>Room: {reservation['room']}</li><li>Day: {reservation['day']}</li><li>Hours: {reservation['reserved_hours']}</li><li>Activity: {reservation['activity']}</li></ul>"
+        return self.HTTP_200_OK + self.header + reservation_html
