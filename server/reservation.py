@@ -29,15 +29,6 @@ class ReservationServer(server.server_base.ServerBase):
         super().__init__(host, port)
         self.config = load_config()
 
-    # TODO: move it to server_base.py
-
-    def send_request(self, host, port, data):
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
-            sock.connect((host, port))
-            sock.sendall(data)
-            # TODO: move buffer size (4096) to utils.py
-            return sock.recv(4096).decode()
-
     def reserve(self, room, activity, day, hour, duration):
         activity_host = self.config["activity_server"]["host"]
         activity_port = self.config["activity_server"]["port"]
