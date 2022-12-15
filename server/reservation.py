@@ -1,9 +1,8 @@
 from database.database import Database
 import server.server_base
 from database import Database
-import json
 import socket
-from utils import DAYS, HOURS
+from utils import DAYS, HOURS, load_config
 import random
 
 
@@ -28,15 +27,10 @@ class ReservationServer(server.server_base.ServerBase):
 
     def __init__(self, host, port):
         super().__init__(host, port)
-        self.config = self.load_config()
-
-    # TODO: Move to utils.py
-    def load_config(self):
-        with open("config.json") as f:
-            config = json.load(f)
-        return config
+        self.config = load_config()
 
     # TODO: move it to server_base.py
+
     def send_request(self, host, port, data):
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
             sock.connect((host, port))
@@ -100,7 +94,6 @@ class ReservationServer(server.server_base.ServerBase):
             if not response.startswith(self.HTTP_200_OK):
                 return self.HTTP_500_INTERNAL_SERVER_ERROR + self.header + response
             return f"{self.HTTP_200_OK}{self.header}{response}"
-            
 
         room_host = self.config["room_server"]["host"]
         room_port = self.config["room_server"]["port"]

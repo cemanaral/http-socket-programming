@@ -1,3 +1,4 @@
+from utils import load_config
 from server import room, activity, reservation
 
 
@@ -18,11 +19,8 @@ def initiate_reservation_server(host, port):
 
 if __name__ == '__main__':
     import threading
-    import json
 
-    # TODO: move it to utils.py 
-    with open("config.json") as f:
-        config = json.load(f)
+    config = load_config()
 
     print(config)
     room_server_thread = threading.Thread(target=initiate_room_server, args=(
