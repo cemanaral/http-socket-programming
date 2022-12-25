@@ -15,7 +15,6 @@ class ActivityServer(server.server_base.ServerBase):
 
     def add(self, name):
         if name in self.activities.db_object:
-            self.activities.db_object.remove(name)
             return self.HTTP_403_FORBIDDEN + self.header + f'<h2>Activity {name} already exists!</h2>'
         self.activities.db_object.append(name)
         self.activities.save()
