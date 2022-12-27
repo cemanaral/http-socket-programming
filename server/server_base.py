@@ -58,7 +58,7 @@ class ServerBase:
         if not method:
             return self.HTTP_200_OK + self.header
 
-        print("method", method)
+        print(f"{self.__class__.__name__} {endpoint}")
         func_call_string = f"self.{method}({','.join(arguments)})"
         result = eval(func_call_string)
         return result
