@@ -66,7 +66,7 @@ class ReservationServer(server.server_base.ServerBase):
                 'room': room, 'day': DAYS[day_index], 'reserved_hours': reserved_hours_slice, 'activity': activity}
             self.reservations.save()
 
-            return self.HTTP_200_OK + self.header + f"<h1>Room {room} have been succesfully reserved for {DAYS[day_index]} {reserved_hours_slice}!</h1>\n"
+            return self.HTTP_200_OK + self.header + f"<h1>Room {room} have been succesfully reserved with id {reservation_id} for {DAYS[day_index]} {reserved_hours_slice} !</h1>\n"
         return self.HTTP_500_INTERNAL_SERVER_ERROR + self.header + "Internal Server Error"
 
     def __generate_reservation_id(self):
