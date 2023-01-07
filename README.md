@@ -1,7 +1,13 @@
-# Socket Programming - HTTP based Room Reservation
+# Object Oriented Socket Programming - HTTP based Room Reservation
+
+## Author
+Cem Anaral [@cemanaral](https://github.com/cemanaral/)
 
 ## Design Overview
 We have a total of five classes in our project. ServerBase, ActivityServer, RoomServer and ReservationServer classes are used to implement core features of the project.
+
+![uml diagram](https://github.com/cemanaral/http-socket-programming/raw/master/images/uml.jpg)
+
 
 ServerBase is responsible for creating listener sockets, receiving the data, parsing relevant information from them, handling the request by calling the appropriate handler methods and sending responses to the clients.
 
@@ -654,3 +660,4 @@ This is our configuration file.
 ```
 
 ## Example Run
+![example run](https://github.com/cemanaral/http-socket-programming/raw/master/images/example-run.png)
