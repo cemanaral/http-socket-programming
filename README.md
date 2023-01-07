@@ -3,6 +3,19 @@
 ## Author
 Cem Anaral [@cemanaral](https://github.com/cemanaral/)
 
+## How to run?
+### Option #1
+Just execute main.py
+```bash
+python main.py
+```
+### Option #2
+Build Dockerfile and run it
+```bash
+docker build -t socket-programming:latest .
+docker run -p 8080:8080 -p 8081:8081 -p 8082:8082 -d socket-programming:latest
+```
+
 ## Table of Contents
 - [Socket Programming - HTTP based Room Reservation](#socket-programming---http-based-room-reservation)
   * [Design Overview](#design-overview)
